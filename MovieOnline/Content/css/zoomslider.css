@@ -50,7 +50,7 @@
 		}
 		
 	.banner-inner {
-    background: url(../~/Content/images/1.jpg) no-repeat 0px 0px;
+    background: url(/Content/images/1.jpg) no-repeat 0px 0px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -59,7 +59,7 @@
     min-height: 200px!important;
 }
 .banner-inner-dott {
-    background: url(../~/Content/images/dots.png)repeat 0px 0px;
+    background: url(/Content/images/dots.png)repeat 0px 0px;
     text-align: center;
         padding-bottom: 150px;
 }
@@ -134,7 +134,7 @@
 		border-radius: 0;
 	}
 	.banner-inner-dott {
-		background: url(../~/Content/images/dots.png)repeat 0px 0px;
+		background: url(/Content/images/dots.png)repeat 0px 0px;
 		text-align: center;
 		padding-bottom: 94px;
 	}
