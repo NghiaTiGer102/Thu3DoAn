@@ -76,3 +76,7 @@ D:\Thu3DoAn\MovieOnline\obj\Debug\MovieOnline.csprojAssemblyReference.cache
 D:\Thu3DoAn\MovieOnline\obj\Debug\MovieOnline.csproj.CopyComplete
 D:\Thu3DoAn\MovieOnline\obj\Debug\MovieOnline.dll
 D:\Thu3DoAn\MovieOnline\obj\Debug\MovieOnline.pdb
+D:\Thu3DoAn\MovieOnline\bin\EntityFramework.dll
+D:\Thu3DoAn\MovieOnline\bin\EntityFramework.SqlServer.dll
+D:\Thu3DoAn\MovieOnline\bin\EntityFramework.xml
+D:\Thu3DoAn\MovieOnline\bin\EntityFramework.SqlServer.xml

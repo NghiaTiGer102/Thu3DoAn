@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MovieOnline.Models;
 
 namespace MovieOnline.Controllers
 {
     public class HomeController : Controller
     {
+        DataProvider dataProvider = new DataProvider();
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Menu()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            List<TheLoai> listTheLoai =   dataProvider.DB.TheLoais.ToList();
+            return PartialView(listTheLoai);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }

@@ -48,12 +48,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <h1><a href="index.html"><span>M</span>ovies <span>P</span>ro</a></h1>
+                            <h1><a href="@Url.Action("index","home")"><span>M</span>ovies <span>P</span>ro</a></h1>
                         </div>
                         <!-- navbar-header -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="index.html">Home</a></li>
+                                <li class="active"><a href="@Url.Action("index","home")">Home</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <b class="caret"></b></a>
                                     <ul class="dropdown-menu multi-column columns-3">
@@ -296,7 +296,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="single video_agile_player">
 
                         <div class="video-grid-single-page-agileits">
-                            <div data-video="f2Z65fobH2I" id="video"> <img src="/Content/images/1.jpg" alt="" class="img-responsive" /> </div>
+                            <div data-video="f2Z65fobH2I" id="video">
+                                <video controls="controls" width="897px" height="504px">
+                                    <source src="https://drive.google.com/uc?export=download&id=13aqAp2aN3D1H2-g25BFp5BCtRjadygKN" type='video/webm' />
+                                </video>
+
+                                @*<img src="/Content/images/1.jpg" alt="" class="img-responsive" />*@
+                            </div>
                         </div>
                         <h4>Force 2 | Official Trailer | John Abraham, Sonakshi Sinha and Tahir Raj Bhasin</h4>
                     </div>
@@ -353,6 +359,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <span>View all posts by :<a href="#"> Admin </a></span>
                         </div>
                         <div class="clearfix"> </div>
+                    </div>
+                    <div class="TapPhim">
+                        Đây là nơi để tập phim
                     </div>
                     <div class="response">
                         <h4>Responses</h4>
