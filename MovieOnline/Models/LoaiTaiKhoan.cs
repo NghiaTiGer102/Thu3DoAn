@@ -12,21 +12,18 @@ namespace MovieOnline.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TheLoai
+    public partial class LoaiTaiKhoan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TheLoai()
+        public LoaiTaiKhoan()
         {
-            this.DanhSachPhimBoes = new HashSet<DanhSachPhimBo>();
-            this.DanhSachPhimLes = new HashSet<DanhSachPhimLe>();
+            this.TaiKhoans = new HashSet<TaiKhoan>();
         }
     
         public int Id { get; set; }
-        public string TenTheLoai { get; set; }
+        public string TenLoai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhSachPhimBo> DanhSachPhimBoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhSachPhimLe> DanhSachPhimLes { get; set; }
+        public virtual ICollection<TaiKhoan> TaiKhoans { get; set; }
     }
 }
