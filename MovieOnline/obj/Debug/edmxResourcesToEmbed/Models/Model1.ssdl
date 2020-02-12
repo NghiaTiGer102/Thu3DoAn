@@ -7,17 +7,27 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="HinhAnh" Type="varchar" MaxLength="100" />
   </EntityType>
-  <EntityType Name="DanhSachPhimBo">
+  <EntityType Name="ChiTietPhimBo">
     <Key>
       <PropertyRef Name="Id" />
       <PropertyRef Name="SoTap" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="SoTap" Type="int" Nullable="false" />
+    <Property Name="TenTapPhim" Type="nvarchar" MaxLength="100" />
+    <Property Name="NgayPhatHanh" Type="date" />
+    <Property Name="LuotXem" Type="int" />
+  </EntityType>
+  <EntityType Name="DanhSachPhimBo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenPhim" Type="nvarchar" MaxLength="100" />
     <Property Name="HinhAnh" Type="varchar" MaxLength="100" />
     <Property Name="NgayPhatHanh" Type="date" />
     <Property Name="TomTatNoiDung" Type="nvarchar(max)" />
+    <Property Name="LuotXem" Type="int" />
     <Property Name="DanhGia" Type="float" />
     <Property Name="TheLoai" Type="int" />
   </EntityType>
@@ -30,8 +40,10 @@
     <Property Name="HinhAnh" Type="varchar" MaxLength="100" />
     <Property Name="NgayPhatHanh" Type="date" />
     <Property Name="TomTatNoiDung" Type="nvarchar(max)" />
+    <Property Name="LuotXem" Type="int" />
     <Property Name="DanhGia" Type="float" />
     <Property Name="TheLoai" Type="int" />
+    <Property Name="Url" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="LoaiPhim">
     <Key>
@@ -64,7 +76,19 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenTheLoai" Type="nvarchar" MaxLength="100" />
   </EntityType>
-  <Association Name="FK__DanhSachP__TheLo__45F365D3">
+  <Association Name="FK__ChiTietPhimB__Id__47DBAE45">
+    <End Role="DanhSachPhimBo" Type="Self.DanhSachPhimBo" Multiplicity="1" />
+    <End Role="ChiTietPhimBo" Type="Self.ChiTietPhimBo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhSachPhimBo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChiTietPhimBo">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DanhSachP__TheLo__4222D4EF">
     <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="0..1" />
     <End Role="DanhSachPhimLe" Type="Self.DanhSachPhimLe" Multiplicity="*" />
     <ReferentialConstraint>
@@ -76,7 +100,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DanhSachP__TheLo__48CFD27E">
+  <Association Name="FK__DanhSachP__TheLo__44FF419A">
     <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="0..1" />
     <End Role="DanhSachPhimBo" Type="Self.DanhSachPhimBo" Multiplicity="*" />
     <ReferentialConstraint>
@@ -88,7 +112,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__TaiKhoan__LoaiTa__3D5E1FD2">
+  <Association Name="FK__TaiKhoan__LoaiTa__398D8EEE">
     <End Role="LoaiTaiKhoan" Type="Self.LoaiTaiKhoan" Multiplicity="0..1" />
     <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
     <ReferentialConstraint>
@@ -102,21 +126,26 @@
   </Association>
   <EntityContainer Name="MovieModelStoreContainer">
     <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietPhimBo" EntityType="Self.ChiTietPhimBo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DanhSachPhimBo" EntityType="Self.DanhSachPhimBo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DanhSachPhimLe" EntityType="Self.DanhSachPhimLe" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoaiPhim" EntityType="Self.LoaiPhim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoaiTaiKhoan" EntityType="Self.LoaiTaiKhoan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TheLoai" EntityType="Self.TheLoai" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__DanhSachP__TheLo__45F365D3" Association="Self.FK__DanhSachP__TheLo__45F365D3">
+    <AssociationSet Name="FK__ChiTietPhimB__Id__47DBAE45" Association="Self.FK__ChiTietPhimB__Id__47DBAE45">
+      <End Role="DanhSachPhimBo" EntitySet="DanhSachPhimBo" />
+      <End Role="ChiTietPhimBo" EntitySet="ChiTietPhimBo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DanhSachP__TheLo__4222D4EF" Association="Self.FK__DanhSachP__TheLo__4222D4EF">
       <End Role="TheLoai" EntitySet="TheLoai" />
       <End Role="DanhSachPhimLe" EntitySet="DanhSachPhimLe" />
     </AssociationSet>
-    <AssociationSet Name="FK__DanhSachP__TheLo__48CFD27E" Association="Self.FK__DanhSachP__TheLo__48CFD27E">
+    <AssociationSet Name="FK__DanhSachP__TheLo__44FF419A" Association="Self.FK__DanhSachP__TheLo__44FF419A">
       <End Role="TheLoai" EntitySet="TheLoai" />
       <End Role="DanhSachPhimBo" EntitySet="DanhSachPhimBo" />
     </AssociationSet>
-    <AssociationSet Name="FK__TaiKhoan__LoaiTa__3D5E1FD2" Association="Self.FK__TaiKhoan__LoaiTa__3D5E1FD2">
+    <AssociationSet Name="FK__TaiKhoan__LoaiTa__398D8EEE" Association="Self.FK__TaiKhoan__LoaiTa__398D8EEE">
       <End Role="LoaiTaiKhoan" EntitySet="LoaiTaiKhoan" />
       <End Role="TaiKhoan" EntitySet="TaiKhoan" />
     </AssociationSet>

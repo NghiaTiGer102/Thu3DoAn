@@ -12,18 +12,14 @@ namespace MovieOnline.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DanhSachPhimLe
+    public partial class ChiTietPhimBo
     {
         public int Id { get; set; }
-        public string TenPhim { get; set; }
-        public string HinhAnh { get; set; }
+        public int SoTap { get; set; }
+        public string TenTapPhim { get; set; }
         public Nullable<System.DateTime> NgayPhatHanh { get; set; }
-        public string TomTatNoiDung { get; set; }
         public Nullable<int> LuotXem { get; set; }
-        public Nullable<double> DanhGia { get; set; }
-        public Nullable<int> TheLoai { get; set; }
-        public string Url { get; set; }
     
-        public virtual TheLoai TheLoai1 { get; set; }
+        public virtual DanhSachPhimBo DanhSachPhimBo { get; set; }
     }
 }

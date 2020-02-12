@@ -80,3 +80,7 @@ D:\Thu3DoAn\MovieOnline\bin\EntityFramework.dll
 D:\Thu3DoAn\MovieOnline\bin\EntityFramework.SqlServer.dll
 D:\Thu3DoAn\MovieOnline\bin\EntityFramework.xml
 D:\Thu3DoAn\MovieOnline\bin\EntityFramework.SqlServer.xml
+D:\Thu3DoAn\MovieOnline\bin\PagedList.dll
+D:\Thu3DoAn\MovieOnline\bin\PagedList.Mvc.dll
+D:\Thu3DoAn\MovieOnline\bin\PagedList.xml
+D:\Thu3DoAn\MovieOnline\bin\PagedList.Mvc.xml

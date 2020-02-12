@@ -24,7 +24,8 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	//open search form
+	//open 
+    form
 	$('.cd-search-trigger').on('click', function(event){
 		event.preventDefault();
 		toggleSearch();

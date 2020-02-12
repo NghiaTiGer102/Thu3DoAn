@@ -58,9 +58,32 @@ namespace MovieOnline.Controllers
         public ActionResult Recent()
         {
 
-            List<DanhSachPhimLe> listDanhSachPhimLe = dataProvider.DB.DanhSachPhimLes.ToList();
+            List<DanhSachPhimLe> listDanhSachPhimLe = dataProvider.DB.DanhSachPhimLes.Take(8).ToList();
 
             return PartialView(listDanhSachPhimLe);
+        }
+
+
+        public ActionResult lastMovie()
+        {
+
+            List<DanhSachPhimLe> ListdanhSachPhimLes  = dataProvider.DB.DanhSachPhimLes.OrderByDescending(n=>n.NgayPhatHanh).Take(10).ToList();
+            return PartialView(ListdanhSachPhimLes);
+        }
+
+
+        public ActionResult RequestedMovie()
+        {
+
+            List<DanhSachPhimLe> ListdanhSachPhimLes = dataProvider.DB.DanhSachPhimLes.OrderByDescending(n => n.NgayPhatHanh).Take(20).ToList();
+            return PartialView(ListdanhSachPhimLes);
+        }
+
+        public ActionResult TopMovie()
+        {
+
+            List<DanhSachPhimLe> ListdanhSachPhimLes = dataProvider.DB.DanhSachPhimLes.OrderByDescending(n => n.LuotXem).Take(8).ToList();
+            return PartialView(ListdanhSachPhimLes);
         }
 
 

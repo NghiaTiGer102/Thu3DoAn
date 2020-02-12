@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f0986675e8944fa4a44caaeea3f03023" Name="Diagram1" ZoomLevel="142" >
-        <EntityTypeShape EntityType="MovieModel.Banner" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="MovieModel.DanhSachPhimBo" Width="1.5" PointX="3" PointY="4.375" />
-        <EntityTypeShape EntityType="MovieModel.DanhSachPhimLe" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="MovieModel.LoaiPhim" Width="1.5" PointX="7.75" PointY="4.75" />
-        <EntityTypeShape EntityType="MovieModel.LoaiTaiKhoan" Width="1.5" PointX="5.75" PointY="1.25" />
-        <EntityTypeShape EntityType="MovieModel.TaiKhoan" Width="1.5" PointX="8" PointY="0.875" />
-        <EntityTypeShape EntityType="MovieModel.TheLoai" Width="1.5" PointX="0.75" PointY="3.25" />
-        <AssociationConnector Association="MovieModel.FK__DanhSachP__TheLo__48CFD27E" />
-        <AssociationConnector Association="MovieModel.FK__DanhSachP__TheLo__45F365D3" />
-        <AssociationConnector Association="MovieModel.FK__TaiKhoan__LoaiTa__3D5E1FD2" />
+      <Diagram DiagramId="f0986675e8944fa4a44caaeea3f03023" Name="Diagram1" ZoomLevel="92" >
+        <EntityTypeShape EntityType="MovieModel.Banner" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MovieModel.ChiTietPhimBo" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="MovieModel.DanhSachPhimBo" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="MovieModel.DanhSachPhimLe" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="MovieModel.LoaiPhim" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="MovieModel.LoaiTaiKhoan" Width="1.5" PointX="5.75" PointY="5.25" />
+        <EntityTypeShape EntityType="MovieModel.TaiKhoan" Width="1.5" PointX="8" PointY="4.875" />
+        <EntityTypeShape EntityType="MovieModel.TheLoai" Width="1.5" PointX="0.75" PointY="3.625" />
+        <AssociationConnector Association="MovieModel.FK__ChiTietPhimB__Id__47DBAE45" />
+        <AssociationConnector Association="MovieModel.FK__DanhSachP__TheLo__44FF419A" />
+        <AssociationConnector Association="MovieModel.FK__DanhSachP__TheLo__4222D4EF" />
+        <AssociationConnector Association="MovieModel.FK__TaiKhoan__LoaiTa__398D8EEE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
