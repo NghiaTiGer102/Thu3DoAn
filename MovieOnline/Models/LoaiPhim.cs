@@ -14,7 +14,16 @@ namespace MovieOnline.Models
     
     public partial class LoaiPhim
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LoaiPhim()
+        {
+            this.DanhSachPhims = new HashSet<DanhSachPhim>();
+        }
+    
         public int Id { get; set; }
         public string TenLoaiPhim { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhSachPhim> DanhSachPhims { get; set; }
     }
 }

@@ -5,21 +5,21 @@ window.onYouTubeIframeAPIReady = function() {
 	YTdeferred.resolve(window.YT);
 };
 
-(function( $ ) {
+jQuery(document).ready(function( jQuery ) {
 
-	$.ajaxSetup({
+	jQuery.ajaxSetup({
 		cache: true
 	});
 
-	$.getScript( "https://www.youtube.com/iframe_api")
+	jQuery.getScript( "https://www.youtube.com/iframe_api")
 		.done(function( script, textStatus ) {
 	});
 
-	$.fn.simplePlayer = function() {
+	jQuery.fn.simplePlayer = function() {
 
-		var	video = $(this);
+		var	video = jQuery(this);
 
-		var play = $('<div />', { id: 'play' }).hide();
+		var play = jQuery('<div />', { id: 'play' }).hide();
 
 		var defaults = {
 				autoplay: 1,
@@ -57,11 +57,11 @@ window.onYouTubeIframeAPIReady = function() {
 
 		play.bind('click', function () {
 
-			if ( !$('#player' ).length ) {
+			if ( !jQuery('#player' ).length ) {
 
-				$('<iframe />', {
+				jQuery('<iframe />', {
 					id: 'player',
-					src: 'https://www.youtube.com/embed/' + video.data('video') + '?' + $.param(defaults)
+					src: 'https://www.youtube.com/embed/' + video.data('video') + '?' + jQuery.param(defaults)
 				})
 				.attr({ width: video.width(), height: video.height(), seamless: 'seamless' })
 				.css('border', 'none')
@@ -69,12 +69,12 @@ window.onYouTubeIframeAPIReady = function() {
 
 				video.children('img').hide();
 
-				$(this).css('background-image', 'url(play-button.png), url(' + video.children().attr('src') + ')').hide();
+				jQuery(this).css('background-image', 'url(play-button.png), url(' + video.children().attr('src') + ')').hide();
 	
 				player = new YT.Player('player', {events: {'onStateChange': onPlayerStateChange, 'onReady': onPlayerReady}});
 			}
 
-			$(this).hide();
+			jQuery(this).hide();
 		});
 
 		return this;

@@ -12,10 +12,10 @@ namespace MovieOnline.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DanhSachPhimBo
+    public partial class DanhSachPhim
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DanhSachPhimBo()
+        public DanhSachPhim()
         {
             this.ChiTietPhimBoes = new HashSet<ChiTietPhimBo>();
         }
@@ -25,12 +25,15 @@ namespace MovieOnline.Models
         public string HinhAnh { get; set; }
         public Nullable<System.DateTime> NgayPhatHanh { get; set; }
         public string TomTatNoiDung { get; set; }
+        public string DuongDanPhim { get; set; }
         public Nullable<int> LuotXem { get; set; }
         public Nullable<double> DanhGia { get; set; }
         public Nullable<int> TheLoai { get; set; }
+        public Nullable<int> LoaiPhim { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhimBo> ChiTietPhimBoes { get; set; }
+        public virtual LoaiPhim LoaiPhim1 { get; set; }
         public virtual TheLoai TheLoai1 { get; set; }
     }
 }

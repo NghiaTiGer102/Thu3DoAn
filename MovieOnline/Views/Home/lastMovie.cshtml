@@ -1,5 +1,5 @@
 ﻿@using MovieOnline.Models
-@model IEnumerable<DanhSachPhimLe>
+@model IEnumerable<DanhSachPhim>
 <div class="w3_agile_latest_movies">
 
     <div id="owl-demo" class="owl-carousel owl-theme">
@@ -14,7 +14,7 @@
                     </a>
                     <div class="mid-1 agileits_w3layouts_mid_1_home">
                         <div class="w3l-movie-text">
-                            <h6><a href="@Url.Action("Index","Single",new{id=item.Id})">Storks </a></h6>
+                            <h6><a href="@Url.Action("Index","Single",new{id=item.Id})">@item.TenPhim </a></h6>
                         </div>
                         <div class="mid-2 agile_mid_2_home">
                             <p>2016</p>

@@ -17,16 +17,13 @@ namespace MovieOnline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TheLoai()
         {
-            this.DanhSachPhimBoes = new HashSet<DanhSachPhimBo>();
-            this.DanhSachPhimLes = new HashSet<DanhSachPhimLe>();
+            this.DanhSachPhims = new HashSet<DanhSachPhim>();
         }
     
         public int Id { get; set; }
         public string TenTheLoai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhSachPhimBo> DanhSachPhimBoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhSachPhimLe> DanhSachPhimLes { get; set; }
+        public virtual ICollection<DanhSachPhim> DanhSachPhims { get; set; }
     }
 }

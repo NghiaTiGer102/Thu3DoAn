@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Banners">
       <EntityTypeMapping TypeName="MovieModel.Banner">
         <MappingFragment StoreEntitySet="Banner">
+          <ScalarProperty Name="IdPhim" ColumnName="IdPhim" />
           <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -13,6 +14,7 @@
       <EntityTypeMapping TypeName="MovieModel.ChiTietPhimBo">
         <MappingFragment StoreEntitySet="ChiTietPhimBo">
           <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
+          <ScalarProperty Name="DuongDanPhim" ColumnName="DuongDanPhim" />
           <ScalarProperty Name="NgayPhatHanh" ColumnName="NgayPhatHanh" />
           <ScalarProperty Name="TenTapPhim" ColumnName="TenTapPhim" />
           <ScalarProperty Name="SoTap" ColumnName="SoTap" />
@@ -20,27 +22,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DanhSachPhimBoes">
-      <EntityTypeMapping TypeName="MovieModel.DanhSachPhimBo">
-        <MappingFragment StoreEntitySet="DanhSachPhimBo">
+    <EntitySetMapping Name="DanhSachPhims">
+      <EntityTypeMapping TypeName="MovieModel.DanhSachPhim">
+        <MappingFragment StoreEntitySet="DanhSachPhim">
+          <ScalarProperty Name="LoaiPhim" ColumnName="LoaiPhim" />
           <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
           <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
           <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
-          <ScalarProperty Name="TomTatNoiDung" ColumnName="TomTatNoiDung" />
-          <ScalarProperty Name="NgayPhatHanh" ColumnName="NgayPhatHanh" />
-          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-          <ScalarProperty Name="TenPhim" ColumnName="TenPhim" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="DanhSachPhimLes">
-      <EntityTypeMapping TypeName="MovieModel.DanhSachPhimLe">
-        <MappingFragment StoreEntitySet="DanhSachPhimLe">
-          <ScalarProperty Name="Url" ColumnName="Url" />
-          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
-          <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
-          <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
+          <ScalarProperty Name="DuongDanPhim" ColumnName="DuongDanPhim" />
           <ScalarProperty Name="TomTatNoiDung" ColumnName="TomTatNoiDung" />
           <ScalarProperty Name="NgayPhatHanh" ColumnName="NgayPhatHanh" />
           <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
@@ -72,6 +61,7 @@
           <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

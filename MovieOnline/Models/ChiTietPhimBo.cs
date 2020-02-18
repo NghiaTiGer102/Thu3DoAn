@@ -18,8 +18,9 @@ namespace MovieOnline.Models
         public int SoTap { get; set; }
         public string TenTapPhim { get; set; }
         public Nullable<System.DateTime> NgayPhatHanh { get; set; }
+        public string DuongDanPhim { get; set; }
         public Nullable<int> LuotXem { get; set; }
     
-        public virtual DanhSachPhimBo DanhSachPhimBo { get; set; }
+        public virtual DanhSachPhim DanhSachPhim { get; set; }
     }
 }

@@ -27,8 +27,7 @@ namespace MovieOnline.Models
     
         public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<ChiTietPhimBo> ChiTietPhimBoes { get; set; }
-        public virtual DbSet<DanhSachPhimBo> DanhSachPhimBoes { get; set; }
-        public virtual DbSet<DanhSachPhimLe> DanhSachPhimLes { get; set; }
+        public virtual DbSet<DanhSachPhim> DanhSachPhims { get; set; }
         public virtual DbSet<LoaiPhim> LoaiPhims { get; set; }
         public virtual DbSet<LoaiTaiKhoan> LoaiTaiKhoans { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }

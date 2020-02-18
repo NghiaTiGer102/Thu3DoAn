@@ -1,4 +1,6 @@
-﻿
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<ChiTietPhimBo>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layoutSingle.cshtml";
@@ -7,8 +9,8 @@
 <div class="w3_content_agilleinfo_inner">
     <div class="agile_featured_movies">
         <div class="inner-agile-w3l-part-head">
-            <h3 class="w3l-inner-h-title">Single Page</h3>
-            <p class="w3ls_head_para">Add short Description</p>
+            <h3 class="w3l-inner-h-title">Chức bạn xem phim vui vẽ</h3>
+
         </div>
         <div class="latest-news-agile-info">
             <div class="col-md-8 latest-news-agile-left-content">
@@ -16,14 +18,22 @@
 
                     <div class="video-grid-single-page-agileits">
                         <div data-video="f2Z65fobH2I" id="video">
-                            <video  controls="controls" width="897px" height="504px">
-                                <source src="https://drive.google.com/uc?export=download&id=@ViewBag.phim.Url" type='video/webm' />
+                            <video controls="controls" class="col-lg-12" width="100%">
+                                @if (ViewBag.phim != null)
+                                {
+                                    <source src="https://drive.google.com/uc?export=download&id=@ViewBag.phim.DuongDanPhim" type='video/webm' />
+                                }
+                                @if (Model != null)
+                                {
+                                    <source src="https://drive.google.com/uc?export=download&id=@Model[0].DuongDanPhim" type='video/webm' />
+                                }
+
                             </video>
 
                             @*<img src="/Content/images/1.jpg" alt="" class="img-responsive" />*@
                         </div>
                     </div>
-                    <h4>@ViewBag.phim.TenPhim</h4>
+                    <h4 style="margin-left: 2%">@ViewBag.TenPhim</h4>
                 </div>
                 <div class="single-agile-shar-buttons">
                     <h5>Share This :</h5>
@@ -31,13 +41,13 @@
                         <li>
                             <div class="fb-like" data-href="https://www.facebook.com/w3layouts" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
                             <script>
-                                    (function (d, s, id) {
-                                        var js, fjs = d.getElementsByTagName(s)[0];
-                                        if (d.getElementById(id)) return;
-                                        js = d.createElement(s); js.id = id;
-                                        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
-                                        fjs.parentNode.insertBefore(js, fjs);
-                                    }(document, 'script', 'facebook-jssdk'));</script>
+                                (function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s); js.id = id;
+                                    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));</script>
                         </li>
                         <li>
                             <div class="fb-share-button" data-href="https://www.facebook.com/w3layouts" data-layout="button_count"
@@ -57,11 +67,11 @@
 
                             <!-- Place this tag after the last +1 button tag. -->
                             <script type="text/javascript">
-                                    (function () {
-                                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                                        po.src = 'https://apis.google.com/js/platform.js';
-                                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                                    })();</script>
+                                (function () {
+                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                    po.src = 'https://apis.google.com/js/platform.js';
+                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                                })();</script>
                         </li>
                     </ul>
                 </div>
@@ -72,15 +82,24 @@
                     </div>
                     <div class="admin-text-right">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                           @ViewBag.TomTatNoiDung
                         </p>
                         <span>View all posts by :<a href="#"> Admin </a></span>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
                 <div class="TapPhim">
-                    Đây là nơi để tập phim
+                    
+                    @if (ViewBag.phim != null)
+                    {
+                       // @Html.PagedListPager(Model, page => Url.Action("Index", new { idphim = ViewBag.idphim, page = page }))
+                    }
+                    @if(Model!=null)
+                    {
+                        <h3>Các tập phim:</h3>
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { idphim = ViewBag.idphim, page = page }))
+                    }
+
                 </div>
                 <div class="response">
 
@@ -124,107 +143,14 @@
                                 </div>
                             </div>*@
 
-                        <div class="fb-comments media-body response-text-right" data-href="https://localhost:44328/@ViewBag.phim.Url" data-width="898" data-numposts="5"></div>
+                        <div class="fb-comments media-body response-text-right" data-href="https://localhost:44328/@ViewBag.DuongDanPhim" data-width="898" data-numposts="5"></div>
                         <div class="clearfix"> </div>
                     </div>
 
                 </div>
 
             </div>
-            <div class="col-md-4 latest-news-agile-right-content">
-
-                <h4 class="side-t-w3l-agile">
-                    Latest <span>Trailer</span></h3>
-                    <div class="video_agile_player sidebar-player">
-                        <div class="video-grid-single-page-agileits">
-                            <div data-video="fNKUgX8PhMA" id="video1"> <img src="/Content/images/22.jpg" alt="" class="img-responsive"> <div id="play"></div></div>
-                        </div>
-
-
-                        <div class="player-text side-bar-info">
-                            <p class="fexi_header">Me Before You </p>
-                            <p class="fexi_header_para">
-                                <span class="conjuring_w3">Story Line<label>:</label></span>Me Before You Official Trailer #2 (2016) - Emilia Clarke, Sam Claflin Movie HD
-
-                                A girl in a small town forms an unlikely....
-                            </p>
-                            <p class="fexi_header_para"><span>Release On<label>:</label></span>Feb 3, 2016 </p>
-                            <p class="fexi_header_para">
-                                <span>Genres<label>:</label> </span>
-                                <a href="genre.html">Drama</a> |
-                                <a href="genre.html">Adventure</a> |
-                                <a href="genre.html">Family</a>
-                            </p>
-                            <p class="fexi_header_para fexi_header_para1">
-                                <span>Star Rating<label>:</label></span>
-                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
-                            </p>
-                        </div>
-
-                    </div>
-                    <div class="clearfix"> </div>
-                    <div class="agile-info-recent">
-                        <h4 class="side-t-w3l-agile">Latest <span>Trailer</span></h4>
-                        <div class="w3ls-recent-grids">
-                            <div class="w3l-recent-grid">
-                                <div class="wom">
-                                    <a href="single.html"><img src="/Content/images/m12.jpg" alt=" " class="img-responsive"></a>
-                                </div>
-                                <div class="wom-right">
-                                    <h5><a href="single.html">Lorem Integer rutrum</a></h5>
-                                    <p>
-                                        Mauris fermentum dictum magna. Sed laoreet aliquam leo.
-                                        Ut tellus dolor, dapibus eget.
-                                    </p>
-                                    <ul class="w3l-sider-list">
-                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i>On Jan 12, 2016</li>
-                                        <li><i class="fa fa-eye" aria-hidden="true"></i> 2602</li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="w3l-recent-grid">
-                                <div class="wom">
-                                    <a href="single.html"><img src="/Content/images/m13.jpg" alt=" " class="img-responsive"></a>
-                                </div>
-                                <div class="wom-right">
-                                    <h5><a href="single.html">Lorem Integer rutrum</a></h5>
-                                    <p>
-                                        Mauris fermentum dictum magna. Sed laoreet aliquam leo.
-                                        Ut tellus dolor, dapibus eget.
-                                    </p>
-                                    <ul class="w3l-sider-list">
-                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i>On Mar 3, 2016</li>
-                                        <li><i class="fa fa-eye" aria-hidden="true"></i> 2742</li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="w3l-recent-grid">
-                                <div class="wom">
-                                    <a href="single.html"><img src="/Content/images/m14.jpg" alt=" " class="img-responsive"></a>
-                                </div>
-                                <div class="wom-right">
-                                    <h5><a href="single.html">Lorem Integer rutrum</a></h5>
-                                    <p>
-                                        Mauris fermentum dictum magna. Sed laoreet aliquam leo.
-                                        Ut tellus dolor, dapibus eget.
-                                    </p>
-                                    <ul class="w3l-sider-list">
-                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i>On Oct 13, 2016</li>
-                                        <li><i class="fa fa-eye" aria-hidden="true"></i> 2802</li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
+            @Html.Action("LastTrailer", "single");
             <div class="clearfix"></div>
         </div>
 

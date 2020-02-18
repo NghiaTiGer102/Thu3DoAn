@@ -16,5 +16,6 @@ namespace MovieOnline.Models
     {
         public int Id { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<int> IdPhim { get; set; }
     }
 }
