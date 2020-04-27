@@ -1,0 +1,162 @@
+﻿@using MovieOnline.Models
+@model IEnumerable<TheLoai>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+
+@if (Session["movietc"] != null)
+{
+    if (Session["movietc"] == "1")
+    {
+        <script>
+            alert("Sửa thành công");
+        </script>
+        Session["movietc"] = null;
+    }
+    else
+    {
+        <script>
+            alert("Sửa Thất bại");
+        </script>
+        Session["movietc"] = null;
+    }
+
+}
+
+<section class="panel">
+    <header class="panel-heading">
+        Thêm phim
+    </header>
+    <div class="panel-body">
+        <form class="form-horizontal bucket-form" action="@Url.Action("InsertMovie", "MovieInsert")" enctype="multipart/form-data"
+              method="post">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tên phim</label>
+                <div class="col-sm-6">
+                    <input type="text" name="TenPhim" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Hình ảnh</label>
+                <div class="col-sm-6">
+                    <input type="file" title="search image" id="file" name="file" onchange="show(this)" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Show ảnh</label>
+                <div class="col-sm-6">
+                    <img id="user_img"
+                         height="100"
+                         width="90"
+                         style="border: solid" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Ngày phát hành</label>
+                <div class="col-sm-6">
+                    <input type="date" name="NgayPhatHanh" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tóm tắt nội dung</label>
+                <div class="col-sm-6">
+                    <textarea name="TomTatNoiDung" rows="5" cols="72"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Link phim</label>
+                <div class="col-sm-6">
+                    <input type="text" name="DuongDanPhim" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tag</label>
+                <div class="col-sm-6">
+                    <input type="text" name="Tag" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Đánh giá</label>
+                <div class="col-sm-6">
+                    <input type="number" name="DanhGia" value="1" min="0" max="5" class="form-control">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Thể loại</label>
+
+                <div class="col-sm-6">
+                    <select id="selTab" name="TheLoai" onchange="select_onchange(this)" class="input-sm form-control w-sm inline v-middle">
+
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Id">@item.TenTheLoai</option>
+                        }
+
+
+
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Loại Phim</label>
+
+                <div class="col-sm-6">
+                    <select id="selTab" name="LoaiPhim" onchange="select_onchange(this)" class="input-sm form-control w-sm inline v-middle">
+
+                        <option value="1">Phim lẻ</option>
+                        <option value="2">Phim bộ</option>
+
+
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Active</label>
+
+                <div class="col-sm-6">
+                    <select id="selTab" name="HienThi" onchange="select_onchange(this)" class="input-sm form-control w-sm inline v-middle">
+
+                        <option value="1">Active</option>
+                        <option value="0">No active</option>
+
+
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Xác nhận</label>
+                <div class="col-sm-6">
+                    <input type="submit" value="Xác nhận" class="form-control btn-success">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>

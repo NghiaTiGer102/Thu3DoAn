@@ -1,13 +1,157 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MovieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HinhAnh" Type="varchar" MaxLength="100" />
+    <Property Name="IdPhim" Type="int" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="ChiTietPhimBo">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="SoTap" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="SoTap" Type="int" Nullable="false" />
+    <Property Name="TenTapPhim" Type="nvarchar" MaxLength="100" />
+    <Property Name="NgayPhatHanh" Type="date" />
+    <Property Name="DuongDanPhim" Type="nvarchar(max)" />
+    <Property Name="LuotXem" Type="int" />
+  </EntityType>
+  <EntityType Name="DanhSachPhim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenPhim" Type="nvarchar" MaxLength="100" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="200" />
+    <Property Name="NgayThem" Type="date" />
+    <Property Name="NgayPhatHanh" Type="date" />
+    <Property Name="TomTatNoiDung" Type="nvarchar(max)" />
+    <Property Name="DuongDanPhim" Type="nvarchar(max)" />
+    <Property Name="LuotXem" Type="int" />
+    <Property Name="DanhGia" Type="float" />
+    <Property Name="TheLoai" Type="int" />
+    <Property Name="LoaiPhim" Type="int" />
+    <Property Name="HienThi" Type="bit" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LoaiPhim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLoaiPhim" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LoaiTaiKhoan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLoai" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="MatKhau" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="int" />
+    <Property Name="LoaiTaiKhoan" Type="int" />
+  </EntityType>
   <EntityType Name="TheLoai">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Ten" Type="nvarchar(max)" />
+    <Property Name="TenTheLoai" Type="nvarchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="TuPhim">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idphim" Type="int" />
+    <Property Name="iduser" Type="int" />
+  </EntityType>
+  <Association Name="FK__ChiTietPhimB__Id__46E78A0C">
+    <End Role="DanhSachPhim" Type="Self.DanhSachPhim" Multiplicity="1" />
+    <End Role="ChiTietPhimBo" Type="Self.ChiTietPhimBo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhSachPhim">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChiTietPhimBo">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DanhSachP__LoaiP__440B1D61">
+    <End Role="LoaiPhim" Type="Self.LoaiPhim" Multiplicity="0..1" />
+    <End Role="DanhSachPhim" Type="Self.DanhSachPhim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiPhim">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DanhSachPhim">
+        <PropertyRef Name="LoaiPhim" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DanhSachP__TheLo__4316F928">
+    <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="0..1" />
+    <End Role="DanhSachPhim" Type="Self.DanhSachPhim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TheLoai">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DanhSachPhim">
+        <PropertyRef Name="TheLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TaiKhoan__LoaiTa__398D8EEE">
+    <End Role="LoaiTaiKhoan" Type="Self.LoaiTaiKhoan" Multiplicity="0..1" />
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiTaiKhoan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TaiKhoan">
+        <PropertyRef Name="LoaiTaiKhoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="MovieModelStoreContainer">
+    <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietPhimBo" EntityType="Self.ChiTietPhimBo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DanhSachPhim" EntityType="Self.DanhSachPhim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiPhim" EntityType="Self.LoaiPhim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiTaiKhoan" EntityType="Self.LoaiTaiKhoan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TheLoai" EntityType="Self.TheLoai" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TuPhim" EntityType="Self.TuPhim" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ChiTietPhimB__Id__46E78A0C" Association="Self.FK__ChiTietPhimB__Id__46E78A0C">
+      <End Role="DanhSachPhim" EntitySet="DanhSachPhim" />
+      <End Role="ChiTietPhimBo" EntitySet="ChiTietPhimBo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DanhSachP__LoaiP__440B1D61" Association="Self.FK__DanhSachP__LoaiP__440B1D61">
+      <End Role="LoaiPhim" EntitySet="LoaiPhim" />
+      <End Role="DanhSachPhim" EntitySet="DanhSachPhim" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DanhSachP__TheLo__4316F928" Association="Self.FK__DanhSachP__TheLo__4316F928">
+      <End Role="TheLoai" EntitySet="TheLoai" />
+      <End Role="DanhSachPhim" EntitySet="DanhSachPhim" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaiKhoan__LoaiTa__398D8EEE" Association="Self.FK__TaiKhoan__LoaiTa__398D8EEE">
+      <End Role="LoaiTaiKhoan" EntitySet="LoaiTaiKhoan" />
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

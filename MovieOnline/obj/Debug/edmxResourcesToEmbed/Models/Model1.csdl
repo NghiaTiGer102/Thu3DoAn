@@ -1,13 +1,165 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MovieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="MovieEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Banners" EntityType="MovieModel.Banner" />
+    <EntitySet Name="ChiTietPhimBoes" EntityType="MovieModel.ChiTietPhimBo" />
+    <EntitySet Name="LoaiPhims" EntityType="MovieModel.LoaiPhim" />
+    <EntitySet Name="LoaiTaiKhoans" EntityType="MovieModel.LoaiTaiKhoan" />
+    <EntitySet Name="TaiKhoans" EntityType="MovieModel.TaiKhoan" />
     <EntitySet Name="TheLoais" EntityType="MovieModel.TheLoai" />
+    <AssociationSet Name="FK__TaiKhoan__LoaiTa__398D8EEE" Association="MovieModel.FK__TaiKhoan__LoaiTa__398D8EEE">
+      <End Role="LoaiTaiKhoan" EntitySet="LoaiTaiKhoans" />
+      <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+    </AssociationSet>
+    <EntitySet Name="TuPhims" EntityType="MovieModel.TuPhim" />
+    <EntitySet Name="DanhSachPhims" EntityType="MovieModel.DanhSachPhim" />
+    <AssociationSet Name="FK__ChiTietPhimB__Id__46E78A0C" Association="MovieModel.FK__ChiTietPhimB__Id__46E78A0C">
+      <End Role="DanhSachPhim" EntitySet="DanhSachPhims" />
+      <End Role="ChiTietPhimBo" EntitySet="ChiTietPhimBoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DanhSachP__LoaiP__440B1D61" Association="MovieModel.FK__DanhSachP__LoaiP__440B1D61">
+      <End Role="LoaiPhim" EntitySet="LoaiPhims" />
+      <End Role="DanhSachPhim" EntitySet="DanhSachPhims" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DanhSachP__TheLo__4316F928" Association="MovieModel.FK__DanhSachP__TheLo__4316F928">
+      <End Role="TheLoai" EntitySet="TheLoais" />
+      <End Role="DanhSachPhim" EntitySet="DanhSachPhims" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdPhim" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ChiTietPhimBo">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="SoTap" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="SoTap" Type="Int32" Nullable="false" />
+    <Property Name="TenTapPhim" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NgayPhatHanh" Type="DateTime" Precision="0" />
+    <Property Name="DuongDanPhim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LuotXem" Type="Int32" />
+    <NavigationProperty Name="DanhSachPhim" Relationship="MovieModel.FK__ChiTietPhimB__Id__46E78A0C" FromRole="ChiTietPhimBo" ToRole="DanhSachPhim" />
+  </EntityType>
+  <EntityType Name="LoaiPhim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLoaiPhim" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DanhSachPhims" Relationship="MovieModel.FK__DanhSachP__LoaiP__440B1D61" FromRole="LoaiPhim" ToRole="DanhSachPhim" />
+  </EntityType>
+  <EntityType Name="LoaiTaiKhoan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLoai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TaiKhoans" Relationship="MovieModel.FK__TaiKhoan__LoaiTa__398D8EEE" FromRole="LoaiTaiKhoan" ToRole="TaiKhoan" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="LoaiTaiKhoan" Type="Int32" />
+    <NavigationProperty Name="LoaiTaiKhoan1" Relationship="MovieModel.FK__TaiKhoan__LoaiTa__398D8EEE" FromRole="TaiKhoan" ToRole="LoaiTaiKhoan" />
+  </EntityType>
   <EntityType Name="TheLoai">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Ten" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TenTheLoai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DanhSachPhims" Relationship="MovieModel.FK__DanhSachP__TheLo__4316F928" FromRole="TheLoai" ToRole="DanhSachPhim" />
   </EntityType>
+  <Association Name="FK__TaiKhoan__LoaiTa__398D8EEE">
+    <End Type="MovieModel.LoaiTaiKhoan" Role="LoaiTaiKhoan" Multiplicity="0..1" />
+    <End Type="MovieModel.TaiKhoan" Role="TaiKhoan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiTaiKhoan">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TaiKhoan">
+        <PropertyRef Name="LoaiTaiKhoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TuPhim">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idphim" Type="Int32" />
+    <Property Name="iduser" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DanhSachPhim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenPhim" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="NgayThem" Type="DateTime" Precision="0" />
+    <Property Name="NgayPhatHanh" Type="DateTime" Precision="0" />
+    <Property Name="TomTatNoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DuongDanPhim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LuotXem" Type="Int32" />
+    <Property Name="DanhGia" Type="Double" />
+    <Property Name="TheLoai" Type="Int32" />
+    <Property Name="LoaiPhim" Type="Int32" />
+    <Property Name="HienThi" Type="Boolean" />
+    <Property Name="Tag" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ChiTietPhimBoes" Relationship="MovieModel.FK__ChiTietPhimB__Id__46E78A0C" FromRole="DanhSachPhim" ToRole="ChiTietPhimBo" />
+    <NavigationProperty Name="LoaiPhim1" Relationship="MovieModel.FK__DanhSachP__LoaiP__440B1D61" FromRole="DanhSachPhim" ToRole="LoaiPhim" />
+    <NavigationProperty Name="TheLoai1" Relationship="MovieModel.FK__DanhSachP__TheLo__4316F928" FromRole="DanhSachPhim" ToRole="TheLoai" />
+  </EntityType>
+  <Association Name="FK__ChiTietPhimB__Id__46E78A0C">
+    <End Type="MovieModel.DanhSachPhim" Role="DanhSachPhim" Multiplicity="1" />
+    <End Type="MovieModel.ChiTietPhimBo" Role="ChiTietPhimBo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhSachPhim">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChiTietPhimBo">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DanhSachP__LoaiP__440B1D61">
+    <End Type="MovieModel.LoaiPhim" Role="LoaiPhim" Multiplicity="0..1" />
+    <End Type="MovieModel.DanhSachPhim" Role="DanhSachPhim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiPhim">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DanhSachPhim">
+        <PropertyRef Name="LoaiPhim" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DanhSachP__TheLo__4316F928">
+    <End Type="MovieModel.TheLoai" Role="TheLoai" Multiplicity="0..1" />
+    <End Type="MovieModel.DanhSachPhim" Role="DanhSachPhim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TheLoai">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DanhSachPhim">
+        <PropertyRef Name="TheLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

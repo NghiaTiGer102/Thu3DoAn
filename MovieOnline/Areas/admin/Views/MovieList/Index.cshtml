@@ -1,0 +1,517 @@
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<MovieOnline.Areas.admin.ViewModel.MovieListViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+
+@if (Session["movietclist"] != null)
+{
+    if (Session["movietclist"] == "1")
+    {
+        <script>
+            alert("Sửa thành công");
+        </script>
+        Session["movietclist"] = null;
+    }
+    else
+    {
+        <script>
+            alert("Sửa Thất bại");
+        </script>
+        Session["movietclist"] = null;
+    }
+
+}
+
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Danh sách phim
+        </div>
+        <div class="row w3-res-tb">
+
+            <div class="col-sm-3 m-b-xs">
+                <label>Loại phim</label>
+                <select onchange="select_onchange(this)" id="selTabloaiphim" name="selTabloaiphim" class="input-sm form-control w-sm inline v-middle">
+                    <option value="0">Tất cả</option>
+
+                    @foreach (LoaiPhim item in ViewBag.loaiphim)
+                    {
+                        <option value="@item.Id">@item.TenLoaiPhim</option>
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="col-sm-3 m-b-xs">
+                <label>Thể loại</label>
+                <select onchange="select_onchangetheloai(this)" id="selTabtheloai" name="selTabtheloai" class="input-sm form-control w-sm inline v-middle">
+                    <option value="0">Tất cả</option>
+                    @foreach (TheLoai item in ViewBag.theloai)
+                    {
+                        <option value="@item.Id">@item.TenTheLoai</option>
+                    }
+
+                </select>
+
+            </div>
+
+
+            <div class="col-sm-3 m-b-xs">
+                <label>Hoạt động</label>
+                <select onchange="select_onchangeactive(this)" id="selTabactive" name="selTabactive" class="input-sm form-control w-sm inline v-middle">
+                    <option value="0">Tất cả</option>
+                    <option value="1">active</option>
+                    <option value="2">No active</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" id="searchvalue" class="input-sm form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" id="search" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+
+                        <th>STT</th>
+                        <th>Tên phim</th>
+                        <th>Hiện thị</th>
+                        <th>Link Ảnh</th>
+                        <th>Hình Ảnh</th>
+                        <th>Ngày phát hành</th>
+                        <th>Tóm tắt nội dụng</th>
+                        <th>Đường dẫn phim</th>
+                        <th>Tag</th>
+                        <th>Thể loại</th>
+                        <th>Loại phim</th>
+
+                        <th style="width:30px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><span class="text-ellipsis">@item.STT</span></td>
+                            <td><span class="text-ellipsis">@item.TenPhim</span></td>
+                            <td><span class="text-ellipsis">@item.TenHienThi</span></td>
+                            <td><span class="text-ellipsis">@item.LinkAnh</span></td>
+                            <td><img src="/Content/images/@item.LinkAnh" width="50px" height="50px" /></td>
+                            <td><span class="text-ellipsis">@item.NgayPhatHanh</span></td>
+                            <td><span class="text-ellipsis">@item.TomTatNoiDung</span></td>
+                            <td><span class="text-ellipsis">@item.DuongDanPhim</span></td>
+                            <td><span class="text-ellipsis">@item.Tag</span></td>
+                            <td><span class="text-ellipsis">@item.TheLoai.TenTheLoai</span></td>
+                            <td><span class="text-ellipsis">@item.LoaiPhim.TenLoaiPhim</span></td>
+                            <td>
+                                <a data-toggle="modal" data-target="#myModal" href="#" id="@item.id" class="sua active" ui-toggle-class="">
+                                    <i class="fa fa-check text-success text-active"></i>
+
+                                </a>
+                                <a href="javascript:;" id="@item.id" class="xoa active" ui-toggle-class="">
+                                    <i class="fa fa-times text-danger text"></i>
+
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { search = ViewBag.search, page = page, ViewBag.active }))
+    </div>
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form class="form-horizontal bucket-form" action="@Url.Action("UpdateMovie", "MovieList")" enctype="multipart/form-data"
+                  method="post">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Tên phim</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="TenPhim" id="TenPhim" class="form-control">
+                        <input type="hidden" name="idTenPhim" id="idPhim" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Hình ảnh</label>
+                    <div class="col-sm-6">
+                        <input type="file" title="search image" id="file" name="file" onchange="show(this)" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Show ảnh</label>
+                    <div class="col-sm-6">
+                        <img id="user_img"
+                             class="imgphim"
+                             height="100"
+                             width="90"
+                             style="border: solid" />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Ngày phát hành</label>
+                    <div class="col-sm-6">
+                        <input type="date" name="NgayPhatHanh" id="NgayPhatHanh" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Tóm tắt nội dung</label>
+                    <div class="col-sm-6">
+                        <textarea name="TomTatNoiDung" id="TomTatNoiDung" rows="5" cols="50"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Link phim</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="DuongDanPhim" name="DuongDanPhim" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Tag</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="Tag" name="Tag" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Đánh giá</label>
+                    <div class="col-sm-6">
+                        <input type="number" id="DanhGia" name="DanhGia" value="1" min="0" max="5" class="form-control">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Thể loại</label>
+
+                    <div class="col-sm-6">
+                        <select id="selTabtl" name="TheLoai" class="input-sm form-control w-sm inline v-middle">
+
+                            @foreach (TheLoai item in ViewBag.theloai)
+                            {
+                                <option value="@item.Id">@item.TenTheLoai</option>
+                            }
+
+
+
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Loại Phim</label>
+
+                    <div class="col-sm-6">
+                        <select id="selTablp" name="LoaiPhim" class="input-sm form-control w-sm inline v-middle">
+
+                            <option value="1">Phim lẻ</option>
+                            <option value="2">Phim bộ</option>
+
+
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Active</label>
+
+                    <div class="col-sm-6">
+                        <select id="selTabat" name="HienThi" class="input-sm form-control w-sm inline v-middle">
+
+                            <option value="1">Active</option>
+                            <option value="0">No active</option>
+
+
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Xác nhận</label>
+                    <div class="col-sm-6">
+                        <input type="submit" value="Xác nhận" class="form-control btn-success">
+                    </div>
+                </div>
+
+            </form>
+
+
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">CLose</button>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var selTabloaiphim = localStorage.getItem("selTabloaiphim");
+        if (selTabloaiphim != null) {
+            $("select[name=selTabloaiphim]").val(selTabloaiphim);
+        }
+
+
+
+        $("select[name=selTabloaiphim]").on("change",
+            function () {
+                localStorage.setItem("selTabloaiphim", $(this).val());
+            });
+
+        var selTabtheloai = localStorage.getItem("selTabtheloai");
+        if (selTabtheloai != null) {
+            $("select[name=selTabtheloai]").val(selTabtheloai);
+        }
+
+
+
+        $("select[name=selTabtheloai]").on("change",
+            function () {
+                localStorage.setItem("selTabtheloai", $(this).val());
+            });
+
+        var selTabactive = localStorage.getItem("selTabactive");
+
+        if (selTabactive != null) {
+            $("select[name=selTabactive]").val(selTabactive);
+        }
+
+
+
+        $("select[name=selTabactive]").on("change",
+            function () {
+                localStorage.setItem("selTabactive", $(this).val());
+            });
+
+
+
+
+        var search = localStorage.getItem("search");
+        if (search != null) {
+            $("#searchvalue").val(search);
+        }
+    });
+
+
+
+    function select_onchange(sel) {
+        var val = sel.value.split("$");
+
+
+
+
+
+        $.ajax({
+            url: '/admin/MovieList/SetActive',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+            }
+        });
+
+
+    }
+
+    function select_onchange(sel) {
+        var val = sel.value.split("$");
+
+
+
+
+
+        $.ajax({
+            url: '/admin/MovieList/SetLoaiPhim',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+            }
+        });
+
+
+    }
+
+    function select_onchangetheloai(sel) {
+        var val = sel.value.split("$");
+
+
+
+
+
+        $.ajax({
+            url: '/admin/MovieList/SetTheLoai',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+            }
+        });
+
+
+    }
+
+    function select_onchangeactive(sel) {
+        var val = sel.value.split("$");
+
+
+
+
+
+        $.ajax({
+            url: '/admin/MovieList/SetActive',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+            }
+        });
+
+    }
+
+    $("#search").click(function (event) {
+
+
+
+        var val = $("#searchvalue").val();
+
+
+        $.ajax({
+            url: '/admin/MovieList/SetSearch',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                localStorage.setItem("search", val);
+                location.reload();
+            }
+        });
+
+    });
+    $(".xoa").click(function (event) {
+        event.preventDefault();
+        var val = this.id;
+        $.ajax({
+            url: '/admin/MovieList/Remove',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                alert("Xóa Thành công");
+                location.reload();
+            }
+        });
+    });
+
+    $(".sua").click(function (event) {
+        event.preventDefault();
+
+
+        var data = {}
+        data.id = this.id;
+
+
+
+
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: '{data: ' + JSON.stringify(data) + '}',
+            url: '/admin/MovieList/FindMovie',
+            success: function (kq) {
+                console.log(kq);
+                $("#TenPhim").val(kq.phim.TenPhim);
+                $("#DuongDanPhim").val(kq.phim.DuongDanPhim);
+                $("#NgayPhatHanh").val(kq.phim.NgayPhatHanh);
+
+                $("#idPhim").val(kq.phim.id);
+
+                $("#TomTatNoiDung").val(kq.phim.TomTatNoiDung);
+
+                $("#Tag").val(kq.phim.Tag);
+
+                $(".imgphim").attr("src", "/Content/images/" + kq.phim.LinkAnh + "");
+                //  selTabloaiphim selTabtheloai selTabactive
+                $('#selTabtl option[value=' + kq.phim.idTheLoai + ']').attr('selected', 'selected');
+                $('#selTablp option[value=' + kq.phim.idLoaiPhim + ']').attr('selected', 'selected');
+                $('#selTabat option[value=' + kq.phim.idActive + ']').attr('selected', 'selected');
+
+            },
+            error: function (kq) {
+                console.log(kq);
+            }
+
+        });
+    });
+
+</script>

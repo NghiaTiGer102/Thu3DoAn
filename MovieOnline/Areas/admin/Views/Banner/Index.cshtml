@@ -1,0 +1,221 @@
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<MovieOnline.Areas.admin.ViewModel.BannerViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Responsive Table
+        </div>
+        <div class="row w3-res-tb">
+
+            <div class="col-sm-5 m-b-xs">
+
+                <select id="selTab" name="selTab" onchange="select_onchange(this)" class="input-sm form-control w-sm inline v-middle">
+                    <option value="2" selected="selected">ALL</option>
+                    <option value="0">No active</option>
+                    <option value="1">Active</option>
+
+
+                </select>
+
+            </div>
+
+            
+
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" id="searchvalue" value="@ViewBag.searchBanner" class="input-sm form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" id="search" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+
+                        <th>STT</th>
+                        <th>Link ảnh</th>
+                        <th>Ảnh</th>
+                        <th>Tình trạng</th>
+                        <th>Tên phim</th>
+                        <th style="width:30px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @foreach (var item in @Model)
+                    {
+                    <tr>
+
+                        <td><span class="text-ellipsis">@item.STT</span></td>
+                        <td><span class="text-ellipsis">@item.HinhAnh</span></td>
+                        <td>  <img src="/Content/images/@item.HinhAnh" width="50px" height="50px" /></td>
+                        <td>
+                            <span class="text-ellipsis">
+                                @if (item.status == 1)
+                                {
+                                    <a href="javascript:;" id="@item.id" class="activebanner"> <span class="text-success">Hoạt động</span> </a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" id="@item.id" class="activebanner"> <span class="text-warning">Chưa  hoạt động</span></a>
+                                }
+
+                            </span>
+                        </td>
+                        <td><span class="text-ellipsis">@item.TenPhim</span></td>
+
+                        <td>
+
+                            <a href="javascript:;" id="@item.id" class="removebanner">  <i class="fa fa-times text-danger"></i></a>
+                        </td>
+
+                    </tr>
+                    }
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { search = ViewBag.search, page = page, ViewBag.active }))
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var genderValue = localStorage.getItem("selTabValue");
+        if (genderValue != null) {
+            $("select[name=selTab]").val(genderValue);
+        }
+
+        var search = localStorage.getItem("search");
+        if (genderValue != null) {
+            $("#searchvalue").val(search);
+        }
+
+        $("select[name=selTab]").on("change",
+            function () {
+                localStorage.setItem("selTabValue", $(this).val());
+            });
+    });
+
+
+    function select_onchange(sel) {
+        var val = sel.value.split("$");
+
+
+
+
+
+        $.ajax({
+            url: '/admin/Banner/SetActive',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+
+            }
+        });
+
+
+    }
+
+    $(".removebanner").click(function (event) {
+
+
+        var val = this.id;
+
+        $.ajax({
+            url: '/admin/Banner/Remove',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (kq) {
+                if (kq.mess.active === 1) {
+                    alert("Xóa thành công");
+                    location.reload();
+                } else {
+                    alert("Xóa thát bại");
+                }
+                location.reload();
+            }
+        });
+
+    });
+
+
+    $("#search").click(function (event) {
+
+        var val = $("#searchvalue").val();
+
+
+        $.ajax({
+            url: '/admin/Banner/SetSearch',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                localStorage.setItem("search", val);
+                location.reload();
+            }
+        });
+
+    });
+
+
+
+    $(".activebanner").click(function (event) {
+
+        var val = this.id;
+
+        $.ajax({
+            url: '/admin/Banner/ActiveStaus',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (kq) {
+                if (kq.mess.active === 1) {
+                    alert("Thay đổi thành công");
+                    location.reload();
+                } else {
+                    alert("Thay đổi thát bại");
+                }
+                location.reload();
+            }
+        });
+    });
+
+ 
+
+
+</script>

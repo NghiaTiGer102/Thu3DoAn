@@ -1,8 +1,148 @@
-﻿
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<ChiTietPhimBo>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layoutSingle.cshtml";
 }
 
-<h2>Index</h2>
+<div class="w3_content_agilleinfo_inner">
+    <div class="agile_featured_movies">
+        <div class="inner-agile-w3l-part-head">
+            <h3 class="w3l-inner-h-title">Chúc bạn xem phim vui vẽ</h3>
+
+        </div>
+        <div class="latest-news-agile-info">
+            <div class="col-md-8 latest-news-agile-left-content">
+                <div class="single video_agile_player">
+
+                    <div class="video-grid-single-page-agileits">
+                        <div data-video="f2Z65fobH2I" id="video">
+                            @*<video controls="controls" class="col-lg-12" width="100%">
+            @if (ViewBag.phim != null)
+            {
+                <source src="https://drive.google.com/uc?export=download&id=@ViewBag.phim.DuongDanPhim" type='video/webm' />
+            }
+            @if (Model != null)
+            {
+                <source src="https://drive.google.com/uc?export=download&id=@Model[0].DuongDanPhim" type='video/webm' />
+            }
+
+        </video>*@
+                            @if (ViewBag.phim != null)
+                            {
+                                @Html.Raw(ViewBag.phim.DuongDanPhim)
+                            }
+                            else if (Model != null)
+                            {
+                                @Html.Raw(ViewBag.phim.DuongDanPhim)
+                            }
+
+
+                            @*<img src="/Content/images/1.jpg" alt="" class="img-responsive" />*@
+                        </div>
+                    </div>
+                    <span style="margin-left: 2%; font-size: 30px" class="text-success">
+                        @if (ViewBag.TenPhim != null)
+                        {
+                            @ViewBag.TenPhim;
+                        }
+
+
+                    </span>
+                   <button id="@ViewBag.phim.Id" class="luuphim btn-info" style="margin-left: 3%">Thêm vào tủ phim</button>
+                </div>
+                <div class="single-agile-shar-buttons">
+                    <h5>Share This :</h5>
+                    <ul>
+                        
+                        <li>
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FMoviePro-107439520856348%2F&width=138&layout=button_count&action=like&size=small&share=true&height=46&appId=724555621349204" width="138" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                        </li>
+                      
+                        
+                    </ul>
+                </div>
+                <div class="admin-text">
+                    <h5>WRITTEN BY ADMIN</h5>
+                    <div class="admin-text-left">
+                        <a href="#"><img src="/Content/images/admin.jpg" alt=""></a>
+                    </div>
+                    <div class="admin-text-right">
+                        <p>
+                           @ViewBag.TomTatNoiDung
+                        </p>
+                        <span>View all posts by :<a href="#"> Admin </a></span>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="TapPhim">
+                    
+                    @if (ViewBag.phim != null)
+                    {
+                       // @Html.PagedListPager(Model, page => Url.Action("Index", new { idphim = ViewBag.idphim, page = page }))
+                    }
+                    @if(Model!=null)
+                    {
+                        <h3>Các tập phim:</h3>
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { idphim = ViewBag.idphim, page = page }))
+                    }
+
+                </div>
+                <div class="response">
+
+
+
+                    <h4>Responses</h4>
+                    <div class="media response-info">
+                        @*<div class="media-left response-text-left">
+                                <a href="#">
+                                    <img class="media-object" src="/Content/images/admin.jpg" alt="">
+                                </a>
+                                <h5><a href="#">Admin</a></h5>
+                            </div>
+                            <div class="media-body response-text-right">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.There are many variations of passages of Lorem Ipsum available.
+                                </p>
+                                <ul>
+                                    <li>October 15, 2016</li>
+                                    <li><a href="single.html"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a></li>
+                                </ul>
+                                <div class="media response-info">
+                                    <div class="media-left response-text-left">
+                                        <a href="#">
+                                            <img class="media-object" src="/Content/images/admin.jpg" alt="">
+                                        </a>
+                                        <h5><a href="#">Admin</a></h5>
+                                    </div>
+                                    <div class="media-body response-text-right">
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.There are many variations of passages of Lorem Ipsum available.
+                                        </p>
+                                        <ul>
+                                            <li>November 02, 2016</li>
+                                            <li><a href="single.html"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>*@
+
+                        <div class="fb-comments media-body response-text-right" data-href="https://localhost:44328/@ViewBag.DuongDanPhim" data-width="898" data-numposts="5"></div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                </div>
+
+            </div>
+            @Html.Action("LastTrailer", "single");
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
 

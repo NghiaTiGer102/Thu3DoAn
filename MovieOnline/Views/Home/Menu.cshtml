@@ -10,22 +10,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <h1><a href="index.html"><span>M</span>ovies <span>P</span>ro</a></h1>
+        <h1><a href="@Url.Action("Index","Home")"><span>M</span>ovies <span>P</span>ro</a></h1>
     </div>
     <!-- navbar-header -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
+        <ul class="nav navbar-nav" style="margin-left: 30%">
+            <li class="active"><a href="@Url.Action("Index","Home")">Home</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <b class="caret"></b></a>
-                <ul class="dropdown-menu multi-column columns-1">
+                <ul class="dropdown-menu multi-column columns-1" >
                     <li>
                         <div class="col-sm-4">
                             <ul class="multi-column-dropdown">
 
                                 @foreach (var item in Model)
                                 {
-                                    <li><a href="@Url.Action("Index","Genre",new { id=item.Id})">@item.Ten</a></li>
+                                    <li><a href="@Url.Action("Index","Genre",new { id=item.Id})">@item.TenTheLoai</a></li>
                                 }
 
                                 @*<li><a href="genre.html">Action</a></li>
@@ -61,42 +61,7 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="series.html">tv - series</a></li>
-            <li><a href="news.html">news</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
-                <ul class="dropdown-menu multi-column columns-3">
-                    <li>
-                        <div class="col-sm-4">
-                            <ul class="multi-column-dropdown">
-                                <li><a href="genre.html">Asia</a></li>
-                                <li><a href="genre.html">France</a></li>
-                                <li><a href="genre.html">Taiwan</a></li>
-                                <li><a href="genre.html">United States</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <ul class="multi-column-dropdown">
-                                <li><a href="genre.html">China</a></li>
-                                <li><a href="genre.html">HongCong</a></li>
-                                <li><a href="genre.html">Japan</a></li>
-                                <li><a href="genre.html">Thailand</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <ul class="multi-column-dropdown">
-                                <li><a href="genre.html">Euro</a></li>
-                                <li><a href="genre.html">India</a></li>
-                                <li><a href="genre.html">Korea</a></li>
-                                <li><a href="genre.html">United Kingdom</a></li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="list.html">A - z list</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            
         </ul>
 
     </div>

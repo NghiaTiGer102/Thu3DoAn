@@ -1,0 +1,226 @@
+﻿@using MovieOnline.Models
+@model IEnumerable<TaiKhoan>
+
+
+<table class="table table-striped b-t b-light">
+    <thead>
+        <tr>
+
+            <th>STT</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th style="width:30px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @for (int i = 1; i <= Model.ToList().Count(); i++)
+        {
+            <tr>
+
+                <td>@i</td>
+                <td><span id="nameuser" class="text-ellipsis">@Model.ToList()[i - 1].HoTen</span></td>
+                <td><span id="emailuser" class="text-ellipsis">@Model.ToList()[i - 1].Email</span></td>
+                <td>
+                    <a  data-toggle="modal" data-target="#myModal" class="update" href="#" id="@Model.ToList()[i-1].Id" class="update"><i class=" fa fa-check text-success text-active"></i></a>
+                    <a id="@Model.ToList()[i-1].Id" class="remove"><i class="fa fa-times text-danger text"></i></a>
+
+                </td>
+             
+            </tr>
+
+        }
+
+
+
+
+    </tbody>
+</table>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa thông tin</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <label class="col-sm-2">Họ tên: </label>  <input id="name" name="name" class="col-sm-6" />
+            </div>
+
+            <div class="modal-body">
+               <label class="col-sm-2" >Email: </label> <input class="col-sm-6" id="email" name="email"placeholder="Email"  />
+            </div>
+
+            <div class="modal-body">
+                <h3 id="er" class="text-warning"></h3>
+            </div>
+
+
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">CLose</button>
+                <button type="button" class="btn btn-success" id="save">Save</button>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $("document").ready(function () {
+
+
+        $(".update").click(function() {
+            //triggered when modal is about to be shown
+
+            var checkkq = 0;
+             var data = {};
+
+            data.id = this.id;
+            data.name = $("#nameuser").text();
+         
+            data.email = $("#emailuser").text();
+
+            $('#myModal').on('show.bs.modal', function(e) {
+
+                //get data-id attribute of the clicked element
+                var bookId = $(e.relatedTarget).data('book-id');
+
+                //populate the textbox
+                $(e.currentTarget).find('input[name="name"]').val(data.name);
+                $(e.currentTarget).find('input[name="email"]').val(data.email);
+            });
+
+
+            $("#save").click(function () {
+
+                
+                data.name = $("#name").val();
+         
+                data.email = $("#email").val();
+
+                if (data.name.trim() === "")
+                {
+                    $("#er").text("Họ tên không được để trống");
+                    return false;
+
+                }
+
+                if (data.email.trim() === "")
+                {
+                    $("#er").text("Email không được để trống");
+                    return false;
+
+                }
+
+         
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{data: ' + JSON.stringify(data) + '}',
+                    url: '@Url.Action("UpdateEmployee","Employees")',
+                    success: function(kq) {
+                        if (kq.mess.active === 1) {
+
+
+                            $("#name").val("");
+                            $("#email").val("");
+
+                            alert("Thành công");
+                            checkkq = 1;
+                           
+
+                        }
+                        else if (kq.mess.active === 2)
+                        {
+
+
+                            alert("Email tồn tại");
+                        }else if (kq.mess.active === 0)
+                        {
+
+
+                            alert("Thành công");
+                        }
+
+                    },
+                    error:  function(kq) {
+
+                    }
+
+
+            });
+
+            
+
+            });
+
+
+            $("#close").click(function() {
+
+                if (checkkq === 1) {
+                    location.reload();
+                }
+
+
+            });
+
+            
+
+        });
+
+    
+
+
+        $(".remove").click(function () {
+
+            var data = {};
+
+
+            data.id = this.id;
+
+
+
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: '{data: ' + JSON.stringify(data) + '}',
+                url: '@Url.Action("ListEmpoyee","Employees")',
+                success: function(kq) {
+
+                    location.reload();
+                },
+                error: function(kq) {
+
+                }
+
+            });
+
+
+
+        });
+
+
+    });
+</script>
+

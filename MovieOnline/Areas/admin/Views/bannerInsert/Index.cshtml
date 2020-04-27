@@ -1,0 +1,274 @@
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<MovieOnline.Areas.admin.ViewModel.MovieViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+
+
+@if (Session["bannertc"] as string != null)
+{
+    if (Session["bannertc"] as string == "1")
+    {
+        Session["bannertc"] = null;
+        <script>
+            alert("Thành công");
+        </script>
+        
+    }
+}
+
+
+<section class="panel">
+    <header class="panel-heading">
+        Thêm banner
+    </header>
+    <div class="panel-body">
+        <form class="form-horizontal bucket-form" action="@Url.Action("InsertBanner", "bannerInsert")" enctype="multipart/form-data"
+              method="post">
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tên Phim</label>
+                <div class="col-sm-6">
+                    <input type="hidden" id="namebanner" name="namebanner" class="form-control" />
+                    <h4 id="namebanner2" name="namebanner2" class="form-control"></h4>
+                    <input type="hidden" id="idphim" name="idphim" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Hình ảnh</label>
+                <div class="col-sm-6">
+                    <input type="file" title="search image" id="file" name="file" onchange="show(this)" />
+                    <input type="hidden" id="checkimg" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Show ảnh</label>
+                <div class="col-sm-6">
+                    <img id="user_img"
+                         height="100"
+                         width="90"
+                         style="border: solid" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Hoạt đông</label>
+
+                <div class="col-sm-6">
+                    <select id="selTab" name="selTab" onchange="select_onchange(this)" class="input-sm form-control w-sm inline v-middle">
+
+                        <option value="0">No active</option>
+                        <option value="1">Active</option>
+
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Xác nhận</label>
+                <div class="col-sm-6">
+                    <input type="submit" id="xacnhan" class="btn btn-success" value="Gữi" />
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Danh sách phim
+        </div>
+        <div class="row w3-res-tb">
+
+
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" id="searchvalueinsert" class="input-sm form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" id="search" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+
+                        <th>STT</th>
+                        <th>Tên Phim</th>
+                        <th>Thao tác</th>
+                        <th style="width:30px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @foreach (var item in @Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.STT
+                            </td>
+                            <td><span class="text-ellipsis">@item.Name</span></td>
+
+                            <td>
+                                <input type="button" id="@item.Name" alt="@item.id" value="Chọn" class="chon btn btn-success" />
+                            </td>
+
+                        </tr>
+
+
+                    }
+                </tbody>
+            </table>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { search = ViewBag.search, page = page, ViewBag.active }))
+    </div>
+</div>
+<script type="text/javascript">
+
+
+
+
+
+
+
+    $(function () {
+
+        var searchvalueinsert = localStorage.getItem("searchvalueinsert");
+
+        if (searchvalueinsert != null) {
+            $("#searchvalueinsert").val(searchvalueinsert);
+        }
+
+
+    });
+
+
+    function select_onchange(sel) {
+        var val = sel.value.split("$");
+
+
+
+
+
+        //$.ajax({
+        //    url: '/admin/Banner/SetActive',
+        //    type: 'Post',
+        //    // we set cache: false because GET requests are often cached by browsers
+        //    // IE is particularly aggressive in that respect
+        //    cache: false,
+        //    data: { val: val },
+        //    success: function(person) {
+        //        location.reload();
+        //    }
+        //});
+
+
+    }
+
+
+
+    $("#search").click(function (event) {
+
+        var val = $("#searchvalueinsert").val();
+
+
+        $.ajax({
+            url: '/admin/bannerInsert/SetSearch',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                localStorage.setItem("search", val);
+                location.reload();
+            }
+        });
+
+    });
+
+    $(".chon").click(function (event) {
+
+
+        var val = this.id;
+
+        $("#namebanner").val(val);
+        $("#namebanner2").text(val);
+
+        $("#idphim").val(this.alt);
+
+        var va = $("#idphim").val();
+
+
+
+
+    });
+
+
+    $("#xacnhan").click(function (event) {
+
+
+        var data = {}
+
+        var check = $("#checkimg").val();
+
+
+
+        data.name = $("#namebanner").val();
+
+        data.active = $("#selTab").val();
+        data.idphim = $("#idphim").val();
+        console.log(data);
+
+        if (check === "") {
+            alert("thiếu ảnh");
+            return;
+        } else {
+            data.url = $("#file")[0].files[0].name;
+        }
+
+        if (data.name === "") {
+            alert("thiếu tên phim");
+            return;
+        }
+
+        $.ajax({
+            url: '/admin/bannerInsert/InsertBanner',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+</script>
