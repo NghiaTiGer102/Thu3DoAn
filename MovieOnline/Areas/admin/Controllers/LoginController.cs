@@ -27,7 +27,7 @@ namespace MovieOnline.Areas.admin.Controllers
             tk.UserName = data.username;
             tk.MatKhau = data.password;
             string message;
-            TaiKhoan checkhave = dataProvider.DB.TaiKhoans.Where(n => n.UserName == tk.UserName && n.MatKhau == tk.MatKhau).FirstOrDefault();
+            TaiKhoan checkhave = dataProvider.DB.TaiKhoans.Where(n => n.UserName == tk.UserName && n.MatKhau == tk.MatKhau&&n.LoaiTaiKhoan==2).FirstOrDefault();
             if (checkhave == null)
             {
 
@@ -43,6 +43,18 @@ namespace MovieOnline.Areas.admin.Controllers
            
             return Json(new { Message = message ,result = "Redirect", url = Url.Action("Index", "AdminHome")});
 
+        }
+
+        public ActionResult Redire()
+        {
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -6,33 +6,64 @@
 
         @foreach (var item in Model)
         {
-            <div class="col-md-2 w3l-movie-gride-agile requested-movies">
-                <a href="@Url.Action("index","Single",new {id=item.Id})" class="hvr-sweep-to-bottom">
-                    <img src="/Content/images/@item.HinhAnh" title="Movies Pro" class="img-responsive" alt=" ">
-                    <div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
-                </a>
-                <div class="mid-1 agileits_w3layouts_mid_1_home">
-                    <div class="w3l-movie-text">
-                        <h6><a href="@Url.Action("index","Single",new {id=item.Id})">@item.TenPhim</a></h6>
-                    </div>
-                    <div class="mid-2 agile_mid_2_home">
-                        <p>@item.NgayPhatHanh.Value.Year</p>
-                        <div class="block-stars">
-                            <ul class="w3l-ratings">
-                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+        <div class="col-md-2 w3l-movie-gride-agile requested-movies">
+            <a href="@Url.Action("index","Single",new {id=item.Id})" class="hvr-sweep-to-bottom">
+                <img src="/Content/images/@item.HinhAnh" title="Movies Pro" class="img-responsive" alt=" ">
+                <div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+            </a>
+            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                <div class="w3l-movie-text">
+                    <h6><a href="@Url.Action("index","Single",new {id=item.Id})">@item.TenPhim</a></h6>
                 </div>
-                <div class="ribben one">
-                    <p>Hay cực</p>
+                <div class="mid-2 agile_mid_2_home">
+                    <p>@item.NgayPhatHanh.Value.Year</p>
+                    <div class="block-stars">
+                        <ul class="w3l-ratings">
+                            @{double danhgia = item.DanhGia.Value; int nost = 0;}
+                            @for (int star = 0; star < danhgia; star++)
+                            {
+                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
+                            }
+
+                            @for (int star = 0; star < 5 - danhgia; star++)
+                            {
+                                <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                            }
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
+            @if (!string.IsNullOrEmpty(item.Tag))
+            {
+                <div class="ribben">
+                    @if (!string.IsNullOrEmpty(item.Tag))
+                    {
+                        <p>@item.Tag</p>
+                    }
+                    else if (item.NgayPhatHanh.Value.Date >= DateTime.Now.Date && item.NgayPhatHanh.Value.Date <= DateTime.Now.AddDays(7).Date)
+                    {
+                        <p>NEW</p>
+                    }
+
+
+                </div>
+            }
+            else
+            {
+                if (item.NgayPhatHanh.Value.Date >= DateTime.Now.Date && item.NgayPhatHanh.Value.Date <= DateTime.Now.AddDays(7).Date)
+                {
+                    <div class="ribben">
+
+
+                        <p>NEW</p>
+
+                    </div>
+                }
+
+
+            }
+        </div>
         }
 
 

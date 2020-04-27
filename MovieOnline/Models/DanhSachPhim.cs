@@ -23,6 +23,7 @@ namespace MovieOnline.Models
         public int Id { get; set; }
         public string TenPhim { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<System.DateTime> NgayThem { get; set; }
         public Nullable<System.DateTime> NgayPhatHanh { get; set; }
         public string TomTatNoiDung { get; set; }
         public string DuongDanPhim { get; set; }
@@ -30,6 +31,8 @@ namespace MovieOnline.Models
         public Nullable<double> DanhGia { get; set; }
         public Nullable<int> TheLoai { get; set; }
         public Nullable<int> LoaiPhim { get; set; }
+        public Nullable<bool> HienThi { get; set; }
+        public string Tag { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhimBo> ChiTietPhimBoes { get; set; }

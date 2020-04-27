@@ -6,19 +6,21 @@
         {
             TaiKhoan tk = (TaiKhoan)Session["taikhoan"];
 
-            <ul>
-                <li>Xin chào @tk.HoTen</li>
+        <ul>
+            <li>Xin chào @tk.HoTen</li>
+            <li><a href="@Url.Action("Index","MovieSave")">Tủ phim</a></li>
 
-                <li><a href="@Url.Action("logout","Home")">Đăng xuất</a></li>
+            <li><a href="@Url.Action("logout","Home")">Đăng xuất</a></li>
 
 
-            </ul>
+
+        </ul>
 
         }
         else
         {
             <ul>
-                <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 009 455 4088</li>
+                
                 <li><a href="#" class="login" data-toggle="modal" data-target="#myModal4">Login</a></li>
                 <li><a href="#" class="login reg" data-toggle="modal" data-target="#myModal5">Register</a></li>
 

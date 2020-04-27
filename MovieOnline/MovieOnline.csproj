@@ -45,13 +45,43 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>packages\Facebook.7.0.10-beta\lib\net45\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Mehr.Configuration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mehr.Configuration.1.0.0.0\lib\net46\Mehr.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Mehr.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mehr.Core.1.0.0.0\lib\net46\Mehr.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Mehr.DataAnnotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mehr.DataAnnotations.1.0.0.0\lib\net46\Mehr.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Mehr.Iran, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mehr.Iran.1.0.0.0\lib\net46\Mehr.Iran.dll</HintPath>
+    </Reference>
+    <Reference Include="Mehr.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mehr.Utility.1.0.0.0\lib\net46\Mehr.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Mehr.Web.Mvc, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mehr.Web.Mvc.2.6.0\lib\net46\Mehr.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Http.Features.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -59,10 +89,29 @@
       <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Pipelines, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Pipelines.4.7.0\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -136,10 +185,28 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\admin\Controllers\BannerController.cs" />
+    <Compile Include="Areas\admin\Controllers\bannerInsertController.cs" />
+    <Compile Include="Areas\admin\Controllers\EmployeesController.cs" />
     <Compile Include="Areas\admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\admin\Controllers\MovieListController.cs" />
+    <Compile Include="Areas\admin\Controllers\SeriesController.cs" />
+    <Compile Include="Areas\admin\ViewModel\AccountViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\BannerInsertViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\BannerViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\ChangeSeriesViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\FindMovie.cs" />
+    <Compile Include="Areas\admin\ViewModel\MessViewModel.cs" />
+    <Compile Include="Areas\admin\Controllers\MovieInsertController.cs" />
+    <Compile Include="Areas\admin\ViewModel\MovieInsertViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\MovieListViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\MovieViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\SearchViewModel.cs" />
+    <Compile Include="Areas\admin\ViewModel\SeriesViewModel.cs" />
     <Compile Include="Areas\ViewModel\AdminLoginViewModel.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MovieSaveController.cs" />
     <Compile Include="Controllers\SeriesController.cs" />
     <Compile Include="Controllers\SingleController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,10 +249,14 @@
     <Compile Include="Models\TheLoai.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TuPhim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\bannerStrore.cs" />
     <Compile Include="ViewModel\BannerViewModel.cs" />
     <Compile Include="ViewModel\ResgisterViewModel.cs" />
+    <Compile Include="ViewModel\SaveMovie.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLayout\css\bootstrap.min.css" />
@@ -391,6 +462,16 @@
     <Content Include="Content\AdminLayout\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Shared\_layoutHomeAdmin.cshtml" />
+    <Content Include="Areas\admin\Views\Employees\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Employees\InsertEmployee.cshtml" />
+    <Content Include="Areas\admin\Views\Employees\ListEmpoyee.cshtml" />
+    <Content Include="Areas\admin\Views\Employees\SearchEmployee.cshtml" />
+    <Content Include="Areas\admin\Views\Banner\Index.cshtml" />
+    <Content Include="Areas\admin\Views\bannerInsert\Index.cshtml" />
+    <Content Include="Areas\admin\Views\MovieInsert\Index.cshtml" />
+    <Content Include="Areas\admin\Views\MovieList\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Series\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -435,11 +516,12 @@
     <Content Include="Views\Shared\_LayoutGenreSearch.cshtml" />
     <Content Include="Views\Genre\SearchMovie.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\MovieSave\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\admin\Data\" />
-    <Folder Include="Areas\admin\Views\Shared\" />
+    <Folder Include="Areas\admin\Views\Movie\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

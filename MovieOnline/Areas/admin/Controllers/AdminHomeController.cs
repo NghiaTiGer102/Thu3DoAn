@@ -11,6 +11,7 @@ namespace MovieOnline.Areas.admin.Controllers
         // GET: admin/Home
         public ActionResult Index()
         {
+            var ss = Session["tkadmin"];
             return View();
         }
     }

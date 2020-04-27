@@ -1,0 +1,82 @@
+﻿
+@{
+    string search = Session["tim"] as string;
+}
+<div class="col-lg-offset-9">
+    <div class="input-group">
+        <input type="text" id="valuesearch" value="@search" class="input-sm form-control" placeholder="Search">
+        <span class="input-group-btn">
+            <button class="btn btn-sm btn-default"  id="Search" type="button">Go!</button>
+        </span>
+    </div>
+</div>
+
+
+<script>
+    $("document").ready(function () {
+
+
+        $("#Search").click(function (event) {
+            event.preventDefault();
+
+            var data = {};
+
+            data.search = $('#valuesearch').val();
+
+            
+
+            alert(data.name);
+            
+
+            
+          
+
+
+            $.ajax({
+             
+                dataType: "json",
+                type: "POSt",
+                contentType: "application/json; charset=utf-8",
+                data: '{data: ' + JSON.stringify(data) + '}',
+                url: '@Url.Action("ListEmpoyee","Employees")',
+                success: function(kq) {
+                    
+
+                },
+                error:  function(kq) {
+                    console.log(kq);
+                }
+
+            });
+
+
+            $.ajax({
+             
+                dataType: "json",
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                data: '{data: ' + JSON.stringify(data) + '}',
+                url: '@Url.Action("ListEmpoyee","Employees")',
+                success: function(kq) {
+                    
+
+                },
+                error:  function(kq) {
+                    console.log(kq);
+                }
+
+            });
+
+
+            location.reload();
+
+        });
+
+
+
+
+      
+
+    });
+
+</script>

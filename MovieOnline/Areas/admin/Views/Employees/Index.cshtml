@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Danh sách nhân viên
+        </div>
+        <div class="row w3-res-tb">
+           
+            <div class="col-sm-4">
+            </div>
+            @Html.Action( "SearchEmployee","Employees")
+        </div>
+        <div class="table-responsive">
+           @Html.Action("ListEmpoyee","Employees")
+        </div>
+        
+    </div>
+</div>
+

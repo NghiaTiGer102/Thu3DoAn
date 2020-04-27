@@ -14,7 +14,7 @@ namespace MovieOnline.Controllers
         public ActionResult Index(int id)
         {
             DanhSachPhim phim = new DanhSachPhim();
-            phim = dataProvider.DB.DanhSachPhims.Where(n => n.LoaiPhim == 2 && n.Id == id).SingleOrDefault();
+            phim = dataProvider.DB.DanhSachPhims.Where(n => n.LoaiPhim == 2 && n.Id == id && n.HienThi == true).SingleOrDefault();
             ViewBag.phim = phim;
             return View();
         }

@@ -19,6 +19,7 @@ namespace MovieOnline.Models
         public string HoTen { get; set; }
         public string Email { get; set; }
         public string MatKhau { get; set; }
+        public Nullable<int> Status { get; set; }
         public Nullable<int> LoaiTaiKhoan { get; set; }
     
         public virtual LoaiTaiKhoan LoaiTaiKhoan1 { get; set; }

@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "InsertEmployee";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+@if (Session["tkadmin"] == null || Session["tkadmin"] == "")
+{
+    <script type="text/javascript">
+        window.location.href = '@Url.Action("Index","Login")';
+    </script>
+}
+<header class="panel-heading">
+    Thêm nhân viên
+</header>
+<div class="panel-body">
+    <form class="form-horizontal bucket-form" method="get">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Họ tên</label>
+            <div class="col-sm-6">
+                <input type="text" id="HoTen" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-6">
+                <input type="text" id="Email" class="form-control round-input">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Tài khoản</label>
+            <div class="col-sm-6">
+                <input class="form-control" id="UserName" type="text" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Mật khẩu</label>
+            <div class="col-sm-6">
+                <input type="password" id="password" class="form-control" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Nhập lại mật khẩu</label>
+            <div class="col-sm-6">
+                <input type="password" id="repassword" class="form-control" placeholder="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <span class="help-block"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-5 control-label"></label>
+            <div class="col-sm-6">
+                <button type="submit" id="submit" class="btn btn-info">Xác nhận</button>
+            </div>
+        </div>
+
+
+
+
+
+    </form>
+</div>
+
+
+<script type="text/javascript">
+
+    $("document").ready(function () {
+
+        $("#submit").click(function () {
+
+            var data = {};
+
+
+            data.name = $("#HoTen").val();
+            data.username = $("#UserName").val();
+            data.email = $("#Email").val();
+            data.password = $("#password").val();
+            data.repassword = $("#repassword").val();
+
+            if (data.name.trim() === "")
+            {
+                $("#er").text("Họ tên không được để trống");
+                return false;
+
+            }
+
+            if (data.username.trim() === "")
+            {
+                $("#er").text("Tài khoản không được để trống");
+                return false;
+
+            }
+
+            if (data.password.trim() === "")
+            {
+                $("#er").text("Mật khẩu không được để trống");
+                return false;
+
+            }
+
+            if (data.repassword.trim() === "")
+            {
+                $("#er").text("Nhập lại mật khẩu  không được để trống");
+                return false;
+
+            }
+
+            if (data.repassword !== data.password) {
+                $("#er").text("Mật khẩu không trùng");
+                return false;
+            }
+
+            console.log(data);
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: '{data: ' + JSON.stringify(data) + '}',
+                url: '@Url.Action("InsertEmployee","Employees")',
+                success: function(kq) {
+                    if (kq.mess.active === 1) {
+
+
+                         $("#HoTen").val("");
+                        $("#UserName").val("");
+                        $("#Email").val("");
+                        $("#password").val("");
+                         $("#repassword").val("");
+
+                         $(".er").text("Thành công");
+                    } else if (kq.mess.active === 2) {
+
+
+                        $("#HoTen").val("");
+                        $("#UserName").val("");
+                        $("#Email").val("");
+                        $("#password").val("");
+                        $("#repassword").val("");
+
+                        $(".help-block").text("Tài khoản đã tồn tại");
+                    }
+
+                    else if (kq.mess.active === 0) {
+
+
+                        $(".help-block").text("Đặng ký thất bại");
+                    }
+
+                },
+                error:  function(kq) {
+
+                }
+
+            });
+        });
+
+
+
+
+    });
+</script>

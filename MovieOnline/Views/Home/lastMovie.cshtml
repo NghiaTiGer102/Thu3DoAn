@@ -17,22 +17,55 @@
                             <h6><a href="@Url.Action("Index","Single",new{id=item.Id})">@item.TenPhim </a></h6>
                         </div>
                         <div class="mid-2 agile_mid_2_home">
-                            <p>2016</p>
+                            <p>@item.NgayPhatHanh.Value.Year</p>
                             <div class="block-stars">
                                 <ul class="w3l-ratings">
-                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                    @{double danhgia = item.DanhGia.Value; int nost = 0;}
+                                    @for (int star = 0; star < danhgia; star++)
+                                    {
+                                        <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                    }
+
+                                    @for (int star = 0; star < 5 - danhgia; star++)
+                                    {
+                                        <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                    }
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    <div class="ribben one">
-                        <p>NEW</p>
-                    </div>
+                    @if (!string.IsNullOrEmpty(item.Tag))
+                    {
+                        <div class="ribben">
+                            @if (!string.IsNullOrEmpty(item.Tag))
+                            {
+                                <p>@item.Tag</p>
+                            }
+                            else if (item.NgayPhatHanh.Value.Date >= DateTime.Now.Date && item.NgayPhatHanh.Value.Date <= DateTime.Now.AddDays(7).Date)
+                            {
+                                <p>NEW</p>
+                            }
+
+
+                        </div>
+                    }
+                    else
+                    {
+                        if (item.NgayPhatHanh.Value.Date >= DateTime.Now.Date && item.NgayPhatHanh.Value.Date <= DateTime.Now.AddDays(7).Date)
+                        {
+                            <div class="ribben">
+
+
+                                <p>NEW</p>
+
+                            </div>
+                        }
+
+
+                    }
+
+
                 </div>
             </div>
         }

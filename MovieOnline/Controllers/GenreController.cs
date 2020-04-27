@@ -22,7 +22,7 @@ namespace MovieOnline.Controllers
                 int pageNumber = (page) ?? 1;
 
                 ViewBag.Maloai = id;
-                List<DanhSachPhim> listdaPhimLes = db.DB.DanhSachPhims.Where(n => n.LoaiPhim == 1 && n.TheLoai == id).ToList();
+                List<DanhSachPhim> listdaPhimLes = db.DB.DanhSachPhims.Where(n => n.TheLoai == id&&n.HienThi==true).ToList();
 
                 return View(listdaPhimLes.ToPagedList(pageNumber, pageSize));
             
@@ -36,7 +36,7 @@ namespace MovieOnline.Controllers
 
 
            
-            List<DanhSachPhim> listdaPhimLes = db.DB.DanhSachPhims.Where(n => n.LoaiPhim == 1 && n.TenPhim.Contains(newsearch)).ToList();
+            List<DanhSachPhim> listdaPhimLes = db.DB.DanhSachPhims.Where(n => n.LoaiPhim == 1 && n.TenPhim.Contains(newsearch) && n.HienThi == true).ToList();
 
             ViewBag.search = newsearch;
             int pageSize = 5;
@@ -54,7 +54,7 @@ namespace MovieOnline.Controllers
         {
             int pageNumber = (page) ?? 1;
             string search = frm["Search"].ToString();
-            List<DanhSachPhim> listdaPhimLes = db.DB.DanhSachPhims.Where(n => n.LoaiPhim == 1 && n.TenPhim.Contains(search)).ToList();
+            List<DanhSachPhim> listdaPhimLes = db.DB.DanhSachPhims.Where(n => n.TenPhim.Contains(search) && n.HienThi == true).ToList();
 
             ViewBag.search = search;
             int pageSize = 5;
@@ -71,7 +71,7 @@ namespace MovieOnline.Controllers
 
         public ActionResult Show()
         {
-            List<DanhSachPhim> phim = db.DB.DanhSachPhims.Where(n => n.LoaiPhim == 1).OrderByDescending(n => n.LuotXem).Take(10).ToList();
+            List<DanhSachPhim> phim = db.DB.DanhSachPhims.Where(n => n.LoaiPhim == 1 && n.HienThi == true).OrderByDescending(n => n.LuotXem).Take(10).ToList();
 
             return PartialView(phim);
         }

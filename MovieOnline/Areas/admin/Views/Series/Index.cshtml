@@ -1,0 +1,345 @@
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<MovieOnline.Areas.admin.ViewModel.SeriesViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_layoutHomeAdmin.cshtml";
+}
+
+<section class="panel">
+    <header class="panel-heading">
+        Thêm tập phim
+    </header>
+    <div class="panel-body">
+        <form class="form-horizontal bucket-form" action="@Url.Action("InsertSeries")" method="post">
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tên phim</label>
+                <div class="col-sm-6">
+
+                    <input type="text" id="TenPhimf" disabled="disabled" class="form-control">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tập phim</label>
+                <div class="col-sm-6">
+                    <input type="text" id="SoTap" name="SoTap" class="form-control">
+                    <input type="hidden" id="idPhim" name="idphim" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Đường dẫn phim</label>
+                <div class="col-sm-6">
+                    <input type="text" id="DuongDanPhim" name="DuongDanPhim" class="form-control">
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Xác nhận</label>
+                <div class="col-sm-6">
+                    <input type="submit" value="Cập nhật" class="btn-success form-control">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        @if (ViewBag.list != null)
+        {
+            <label class="col-sm-3 control-label">Danh sách tập phim</label><br />
+            <div class="col-lg-offset-1 " style="margin-top: 10px; padding-bottom: 10px">
+                @foreach (ChiTietPhimBo item in ViewBag.list)
+                {
+                    <button data-toggle="modal" data-target="#myModal" id="@item.Id" value="@item.SoTap" class="change btn btn-sm btn-send">@item.SoTap</button>
+                }
+
+
+            </div>
+        }
+
+
+    </div>
+</section>
+
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Danh sách phim bộ
+        </div>
+        <div class="row w3-res-tb">
+            <div class="col-sm-5 m-b-xs">
+                <select onchange="select_onchangetheloai(this)" id="selTabtlseries" name="selTabtlseries" class="input-sm form-control w-sm inline v-middle">
+                    <option value="0">ALL</option>
+                    @foreach (TheLoai item in ViewBag.listtl)
+                    {
+                        <option value="@item.Id">@item.TenTheLoai</option>
+                    }
+                </select>
+                <button class="btn btn-sm btn-default">Apply</button>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" id="searchseries" class="input-sm form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" id="submitsearchseries" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+
+                        <th>STT</th>
+                        <th>Tên Phim</th>
+                        <th>Thể loại</th>
+                        <th style="width:30px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td><span class="text-ellipsis">@item.STT</span></td>
+                            <td><span id="TenPhim" class="text-ellipsis">@item.TenPhim</span></td>
+                            <td><span id="TenPhim" class="text-ellipsis">@item.TheLoai.TenTheLoai</span></td>
+                            <td>
+                                <button type="button" name="@item.TenPhim" id="@item.id" class="chon btn-success">Chọn</button>
+                            </td>
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { search = ViewBag.search, page = page, ViewBag.active }))
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa thông tin</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <label class="col-sm-2">Đường dẫn: </label>  <input id="duongdan" name="duongdan" class="col-sm-6" />
+            </div>
+
+            
+                <input type="hidden" id="idphims" name="idphims" class="col-sm-6" />
+          
+
+           
+                 <input type="hidden" id="sotaps" name="sotaps" class="col-sm-6" />
+         
+
+
+            <!-- Modal footer -->
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-danger" id="delete" data-dismiss="modal">Xóa</button>
+                     <button type="button" class="btn btn-success" id="save">Save</button>
+                     <button type="button" class="btn btn-send" id="close" data-dismiss="modal">CLose</button>
+                 </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+
+        var selTabtlseries = localStorage.getItem("selTabtlseries");
+        if (selTabtlseries != null) {
+            $("select[name=selTabtlseries]").val(selTabtlseries);
+        }
+    });
+
+    $("select[name=selTabtlseries]").on("change",
+        function () {
+            localStorage.setItem("selTabtlseries", $(this).val());
+        });
+
+
+    function select_onchangetheloai(sel) {
+
+        var val = sel.value.split("$");
+
+
+
+
+
+        $.ajax({
+            url: '/admin/Series/SetTheLoai',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+                location.reload();
+            }
+        });
+
+
+    }
+
+
+
+    var Tenphim = localStorage.getItem("Tenphim");
+    if (Tenphim != null) {
+        $("#TenPhimf").val(Tenphim);
+    }
+
+
+    var idphim = localStorage.getItem("idphim");
+    if (idphim != null) {
+        $("#idPhim").val(idphim);
+    }
+
+    $(".chon").click(function (event) {
+
+
+
+
+        $("#TenPhimf").val(this.name);
+
+        $("#idPhim").val(this.id);
+
+        localStorage.setItem("Tenphim", this.name);
+
+
+
+        localStorage.setItem("idphim", this.id);
+
+        var val = this.id;
+        $.ajax({
+            url: '/admin/Series/SetSeries',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+
+                location.reload();
+            }
+        });
+
+    });
+
+
+
+
+    var searchseries = localStorage.getItem("searchseries");
+    if (searchseries != null) {
+        $("#searchseries").val(searchseries);
+    }
+
+
+    $("#submitsearchseries").click(function (event) {
+
+
+        var val = $("#searchseries").val();
+
+        localStorage.setItem("searchseries", val);
+
+
+
+
+
+
+        $.ajax({
+            url: '/admin/Series/SetSearch',
+            type: 'Post',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            cache: false,
+            data: { val: val },
+            success: function (person) {
+
+                location.reload();
+            }
+        });
+
+    });
+
+    $(".change").click(function (event) {
+        $("#sotaps").val(this.value);
+        $("#idphims").val(this.id);
+    });
+
+
+    $("#delete").click(function(event) {
+
+        var data = {}
+
+        data.id = $("#idphims").val();
+        data.sotap = $("#sotaps").val();
+
+        console.log(data);
+        
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: '{data: ' + JSON.stringify(data) + '}',
+            url: '/admin/Series/Remove',
+            success: function (kq) {
+
+                location.reload();
+            }
+        });
+
+        location.reload();
+
+    });
+
+    $("#save").click(function(event) {
+
+        var data = {}
+
+        data.id = $("#idphims").val();
+        data.sotap = $("#sotaps").val();
+        data.duongdan = $("#duongdan").val();
+        console.log(data);
+        
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: '{data: ' + JSON.stringify(data) + '}',
+            url: '/admin/Series/Update',
+            success: function (kq) {
+
+                location.reload();
+            }
+        });
+
+        location.reload();
+
+    });
+
+</script>

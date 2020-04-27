@@ -1,0 +1,86 @@
+﻿@using MovieOnline.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<DanhSachPhim>
+
+@{
+    ViewBag.Title = "SearchMovie";
+    Layout = "~/Views/Shared/_LayoutGenreSearch.cshtml";
+}
+<h3 class="agile_w3_title">Tủ <span>Movies</span> </h3>
+<div class="wthree_agile-requested-movies">
+
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-2 w3l-movie-gride-agile requested-movies">
+                <a href="@Url.Action("Index","Single",new{id= item.Id})" class="hvr-sweep-to-bottom">
+                    <img src="/Content/images/@item.HinhAnh" title="Movies Pro" class="img-responsive" alt=" ">
+                    <div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+                </a>
+
+
+                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                    <div class="w3l-movie-text">
+                        <h6><a href="@Url.Action("Index","Single",new{id=item.Id})">@item.TenPhim</a></h6>
+                    </div>
+                    <div class="mid-2 agile_mid_2_home">
+                        <p>2016</p>
+                        <div class="block-stars">
+                            <ul class="w3l-ratings">
+                                @{double danhgia = item.DanhGia.Value; int nost = 0;}
+                                @for (int star = 0; star < danhgia; star++)
+                                {
+                                    <a href="#"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                }
+
+                                @for (int star = 0; star < 5 - danhgia; star++)
+                                {
+                                    <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                }
+                            </ul>
+                        </div>
+                       
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="ribben one">
+                    <p>NEW</p>
+                </div>
+                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                    <button id="@item.Id" style="width: 100%" class="xoa btn-danger">Xóa</button>
+                </div>
+                   
+                
+            </div>
+        }
+    }
+    else
+    {
+        <img style="margin-left: 30%" src="https://res.cloudinary.com/tranhieuit/image/upload/f_auto,q_auto/$wpsize_!_cld_full!,w_620,h_400,c_scale/v1566029346/tranhieuit.com/ngan-chan-loi-404-wordpress.jpg" />
+    }
+
+
+
+
+
+
+</div>
+<div class="clearfix"></div>
+
+<div class="blog-pagenat-wthree">
+    <ul>
+
+        @Html.PagedListPager(Model, page => Url.Action("SearchMovie", new { newsearch = ViewBag.search, page = page }))
+
+    </ul>
+
+
+
+    <!--//requested-movies-->
+    <h3 class="agile_w3_title"> Top Movies <span>Review</span></h3>
+    <!--/movies-->
+    @Html.Action("Show", "genre")
+    <!--//movies-->
+</div>
+
